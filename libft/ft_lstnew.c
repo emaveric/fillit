@@ -6,7 +6,7 @@
 /*   By: emaveric <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 20:03:25 by emaveric          #+#    #+#             */
-/*   Updated: 2019/04/18 21:12:40 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/07/25 19:06:55 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	t_list	*new;
 
 	new = (t_list *)malloc(sizeof(t_list));
+
 	if (new == NULL)
 		return (0);
 	if (content == NULL)

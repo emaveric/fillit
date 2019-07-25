@@ -79,4 +79,8 @@ add_executable(fillit
         libft/Makefile
         libft/README.md
         Makefile
-        main.c fillit.h ft_is_figure_valid.c)
+        main.c
+        fillit.h
+        ft_is_figure_valid.c
+        ft_figure_coordinates.c
+        )

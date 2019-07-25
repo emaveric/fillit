@@ -6,7 +6,7 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 16:48:28 by emaveric          #+#    #+#             */
-/*   Updated: 2019/07/24 18:04:14 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/07/24 20:03:54 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ static int 	ft_sum_con(const char *buf)
 	sum_con = 0;
 	while (i < 20)
 	{
-		if(*(buf + i) == '#' && *(buf + i - 1) == '#')
+		if (*(buf + i) == '#' && *(buf + i - 1) == '#')
 			sum_con++;
-		if(*(buf + i) == '#' && *(buf + i + 1) == '#')
+		if (*(buf + i) == '#' && *(buf + i + 1) == '#')
 			sum_con++;
-		if(*(buf + i) == '#' && *(buf + i - 5) == '#')
+		if (*(buf + i) == '#' && *(buf + i - 5) == '#')
 			sum_con++;
-		if(*(buf + i) == '#' && *(buf + i + 5) == '#')
+		if (*(buf + i) == '#' && *(buf + i + 5) == '#')
 			sum_con++;
 		i++;
 	}
