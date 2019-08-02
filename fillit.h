@@ -6,7 +6,7 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 21:11:40 by emaveric          #+#    #+#             */
-/*   Updated: 2019/07/25 20:03:26 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/07/31 19:42:52 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 
 typedef struct	tetrimo_list
 {
-	int 				frog;
-	int 				jaba;
+	int 				x_min;
+	int 				y_min;
 	int 				**coord;
 	struct tetrimo_list	*next;
 	struct tetrimo_list	*prev;
 }						tet_list;
 
 int		ft_is_figure_valid(char *buf);
-int 	ft_figure_coordinates(const char *buf);
-int 	test();
+int 	ft_figure_coordinates(const char *buf, tet_list	**head);
+int 	ft_new_field(const char *buf, tet_list **head);
 
 #endif //FILLIT_FILLIT_H

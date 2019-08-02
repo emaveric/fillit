@@ -83,4 +83,4 @@ add_executable(fillit
         fillit.h
         ft_is_figure_valid.c
         ft_figure_coordinates.c
-        )
+        ft_new_field.c)

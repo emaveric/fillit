@@ -6,7 +6,7 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 21:03:30 by emaveric          #+#    #+#             */
-/*   Updated: 2019/07/25 20:41:42 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/07/31 19:42:52 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int 	ft_is_file_valid(int argc, char **argv, char *buf)
 	return (0);
 }
 
-static int 	**new_arr()
+/*static int 	**new_arr()
 {
 	int **new_arr;
 	int i;
@@ -45,26 +45,29 @@ static int 	**new_arr()
 	return (new_arr);
 }
 
-static tet_list		*new_tet_list()
+static tet_list		*ft_new_tet_list()
 {
 	tet_list *new;
 
 	new = malloc(sizeof(tet_list));
-	new->coord = new_arr();
+	new->coord = ft_new_arr();
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
-}
+}*/
 
 int			main(int argc, char **argv)
 {
-	char	buf[BUFF_SIZE + 1];
+	char		buf[BUFF_SIZE + 1];
+	tet_list	*head;
 
+	head = NULL;
 	if (ft_is_file_valid(argc, argv, buf) == -1)
 	{
 		ft_putstr("error\n");
 		return (-1);
 	}
-	ft_figure_coordinates(buf);
+	ft_figure_coordinates(buf, &head);
+	ft_new_field(buf, &head);
 	return (0);
 }
