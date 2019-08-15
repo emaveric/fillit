@@ -6,31 +6,47 @@
 #    By: emaveric <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/28 20:04:11 by emaveric          #+#    #+#              #
-#    Updated: 2019/05/28 20:07:08 by emaveric         ###   ########.fr        #
+#    Updated: 2019/08/12 17:42:48 by emaveric         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fillit.a
+.PHONY : clean fclean all re
 
-SRC = *.c
+NAME = fillit
 
-OBJ = *.o
+LIB_DIR = libft
 
-HEAD = -I fillit.h
+SRC = make.c ft_new_field.c ft_figure)coordinates.c
 
-FLAGS = -Wall -Wextra -Werror
+OBJ = $(SRC:.c = .o)
+
+LIB = libft.a
+
+R_LIB = make -C  $(LIB_DIR)
+
+CFLAGS = -Wall -Wextra -Werror
+
+LFLAGS = -L $(LIB_DIR) -lft
 
 all: $(NAME)
 
-$(NAME):
-	gcc -c $(FLAGS) $(HEAD) $(SRC)
-	ar rc $(OBJ) $(NAME)
-	ranlib $(NAME)
+$(LIB):
+    $(R_LIB)
+
+%.o = %.c
+    gcc -c $(CFLAGS) -I. $<
+
+$(NAME): $(LIB) $(OBJ)
+	@gcc $(CFLAGS) $(LFLAGS) -I. -o $(NAME) $(OBJ)
+	//ar rc $(OBJ) $(NAME)
+	//ranlib $(NAME)
 
 clean:
-	rm -rf $(OBJ)
+	rm -f $(OBJ)
+	make -C $(LIB_DIR) clean
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
+    make -C $(LIB_DIR) fclean
 
 re: fclean all

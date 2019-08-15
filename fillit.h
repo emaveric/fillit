@@ -6,7 +6,7 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 21:11:40 by emaveric          #+#    #+#             */
-/*   Updated: 2019/07/31 19:42:52 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/02 20:12:43 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define BUFF_SIZE 545
 # include <fcntl.h>
 # include "libft/libft.h"
+# include <stdio.h>
 
 typedef struct	tetrimo_list
 {
@@ -26,8 +27,8 @@ typedef struct	tetrimo_list
 	struct tetrimo_list	*prev;
 }						tet_list;
 
-int		ft_is_figure_valid(char *buf);
+int		ft_is_figure_valid(char *buf, int *sharp_num);
 int 	ft_figure_coordinates(const char *buf, tet_list	**head);
-int 	ft_new_field(const char *buf, tet_list **head);
+int 	ft_new_field(const char *buf, tet_list **head, int sharp_num);
 
 #endif //FILLIT_FILLIT_H

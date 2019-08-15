@@ -6,14 +6,14 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 21:03:30 by emaveric          #+#    #+#             */
-/*   Updated: 2019/07/31 19:42:52 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/02 20:15:36 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-static int 	ft_is_file_valid(int argc, char **argv, char *buf)
+static int 	ft_is_file_valid(int argc, char **argv, char *buf, int *sharp_num)
 {
 	int		fd;
 	int		read_ch;
@@ -23,7 +23,7 @@ static int 	ft_is_file_valid(int argc, char **argv, char *buf)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0 || (read_ch = read(fd, buf, BUFF_SIZE)) > 545 || (read_ch) < 20)
 		return (-1);
-	if (ft_is_figure_valid(buf) == -1)
+	if (ft_is_figure_valid(buf, sharp_num) == -1)
 		return (-1);
 	printf("%d simv\n\n", read_ch);
 	printf("%s\n", buf);
@@ -58,16 +58,20 @@ static tet_list		*ft_new_tet_list()
 
 int			main(int argc, char **argv)
 {
+	int 		sharp_num;
 	char		buf[BUFF_SIZE + 1];
 	tet_list	*head;
 
+	sharp_num = 0;
 	head = NULL;
-	if (ft_is_file_valid(argc, argv, buf) == -1)
+	if (ft_is_file_valid(argc, argv, buf, &sharp_num) == -1)
 	{
 		ft_putstr("error\n");
 		return (-1);
 	}
+	//printf ("\n\nNUM_SHARP %d\n\n", sharp_num);
 	ft_figure_coordinates(buf, &head);
-	ft_new_field(buf, &head);
+	printf ("NUM_SHARP %d\n\n", sharp_num);
+	ft_new_field(buf, &head, sharp_num);
 	return (0);
 }

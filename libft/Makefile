@@ -6,9 +6,11 @@
 #    By: emaveric <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 19:36:08 by emaveric          #+#    #+#              #
-#    Updated: 2019/04/21 15:41:22 by emaveric         ###   ########.fr        #
+#    Updated: 2019/08/12 17:44:24 by emaveric         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+.PHONY : all clean fclean re
 
 NAME = libft.a
 
@@ -43,6 +45,9 @@ OBJ = ft_atoi.o ft_lstiter.o ft_putendl.o ft_strdel.o ft_strnequ.o \
 HEAD = -I libft.h
 
 FLAGS = -Wall -Wextra -Werror
+
+%.o = %.c
+    gcc -c $(CFLAGS) -I. $<
 
 all: $(NAME)
 

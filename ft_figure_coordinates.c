@@ -6,7 +6,7 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 17:04:58 by emaveric          #+#    #+#             */
-/*   Updated: 2019/08/01 20:15:12 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/13 16:09:11 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void				ft_coord_search(const char *buf, tet_list *temp)
 				temp->x_min = i % 5;
 		}
 	}
+	printf("X_MIN %d Y_MIN %d\n",temp->x_min, temp->y_min);
 	i = 0;
 	while (i < 20)
 	{

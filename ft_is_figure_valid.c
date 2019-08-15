@@ -6,13 +6,13 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 16:48:28 by emaveric          #+#    #+#             */
-/*   Updated: 2019/07/24 20:03:54 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/02 20:09:12 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int 	ft_sum_valid(const char *buf)
+static int 	ft_sum_valid(const char *buf, int *sharp_num)
 {
 	int		sum_dot;
 	int 	sum_sharp;
@@ -35,6 +35,7 @@ static int 	ft_sum_valid(const char *buf)
 	}
 	if (sum_sharp != 4 || sum_dot != 12 || sum_n != 4)
 		return (-1);
+	*sharp_num += sum_sharp;
 	printf("%d %d %d\n",sum_dot, sum_sharp, sum_n);
 	return (0);
 }
@@ -72,14 +73,14 @@ static int 	ft_is_gap_valid(const char *buf)
 	return (-1);
 }
 
-int 		ft_is_figure_valid(char *buf)
+int 		ft_is_figure_valid(char *buf, int *sharp_num)
 {
 	int 	i;
 
 	i = 0;
 	while (buf[i] != '\0')
 	{
-		if (ft_sum_valid(buf + i) == -1 || ft_sum_con(buf + i) == -1 ||
+		if (ft_sum_valid(buf + i, sharp_num) == -1 || ft_sum_con(buf + i) == -1 ||
 			ft_is_gap_valid(buf + i + 21))
 			return (-1);
 		i += 21;
