@@ -6,7 +6,7 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 17:04:58 by emaveric          #+#    #+#             */
-/*   Updated: 2019/08/13 16:09:11 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/18 20:04:19 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int 			**ft_new_arr()
 	return (new_arr);
 }
 
-static tet_list		*ft_new_tet_list()
+static tet_list		*ft_new_tet_list(char letter)
 {
 	tet_list *new;
 
@@ -37,8 +37,13 @@ static tet_list		*ft_new_tet_list()
 		return (-1);
 	if (!(new->coord = ft_new_arr()))
 		return (-1);
+	new->letter = letter;
 	new->next = NULL;
 	new->prev = NULL;
+	new->x_map = 0;
+	new->y_map = 0;
+	new->x_loc = 0;
+	new->y_loc = 0;
 	return (new);
 }
 
@@ -80,16 +85,19 @@ void				ft_coord_search(const char *buf, tet_list *temp)
 int 				ft_figure_coordinates(const char *buf, tet_list	**head)
 {
 	int 		i;
+	char 		letter;
 	tet_list	*temp;
 	tet_list	*div;
 
 	i = 0;
-	if (!(temp = ft_new_tet_list()))
+	letter = 'A';
+	if (!(temp = ft_new_tet_list(letter)))
 		return (-1);
 	*head = temp;
 	while (buf[i] != '\0')
 	{
-		if (!(temp->next = ft_new_tet_list()))
+		letter++;
+		if (!(temp->next = ft_new_tet_list(letter)))
 			return (-1);
 		div = temp;
 		temp->x_min = 3;

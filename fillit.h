@@ -6,7 +6,7 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 21:11:40 by emaveric          #+#    #+#             */
-/*   Updated: 2019/08/02 20:12:43 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/19 16:25:11 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@
 
 typedef struct	tetrimo_list
 {
+	int 				x_map;
+	int 				y_map;
 	int 				x_min;
 	int 				y_min;
+	int 				x_loc;
+	int 				y_loc;
 	int 				**coord;
+	char 				letter;
 	struct tetrimo_list	*next;
 	struct tetrimo_list	*prev;
 }						tet_list;

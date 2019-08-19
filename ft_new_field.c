@@ -6,11 +6,14 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 15:50:35 by emaveric          #+#    #+#             */
-/*   Updated: 2019/08/15 17:24:49 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/19 20:56:40 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+static void	ft_map_search(tet_list *temp, char **map, int map_size, tet_list **head);
+static char **algoritm(tet_list *temp, char **map, int map_size, tet_list **head);
 
 static char	**ft_new_map(int map_size)
 {
@@ -43,62 +46,125 @@ static char	**ft_new_map(int map_size)
 	return (map);
 }
 
-static char **algoritm(tet_list *temp, char **map, int map_size)
+static void	ft_map_rebuild(tet_list *temp, char **map, int map_size, tet_list **head)
 {
 	int 	i;
 	int 	j;
 
 	i = 0;
 	j = 0;
+	temp->x_loc = 0;
+	temp->y_loc = 0;
+	temp->x_map = 0;
+	temp->y_map = 0;
+	temp = temp->prev;
+	if (temp == NULL)
+	{
+		while (j < map_size)
+		{
+			ft_strdel(&map[j]);
+			j++;
+		}
+		map = ft_new_map(++map_size);
+		algoritm(*head, map, map_size, head);
+	}
 	while (j < map_size)
 	{
 		while (i < map_size)
 		{
-			if (map[j][i] == '#' && j <= temp->y_min)
-			{
-				temp->x_min = i + 1;
-				temp->y_min = j;
-			}
+			if (map[j][i] == temp->letter)
+				map[j][i] = '.';
 			i++;
 		}
 		i = 0;
 		j++;
 	}
-	printf("\nX_MIN %d Y_MIN %d\n",temp->x_min, temp->y_min);
-	j = 0;
-	if (temp->x_min < map_size && temp->y_min < map_size)
+	algoritm(temp, map, map_size, head);
+}
+
+static void	ft_map_search(tet_list *temp, char **map, int map_size, tet_list **head)
+{
+	int 	i;
+	int 	j;
+
+	i = temp->x_loc;
+	j = temp->y_loc;
+	while (j < map_size)
 	{
-		j++;
-		temp->x_min += temp->coord[j][1];
-		temp->y_min += temp->coord[j][0];
-	}
-	printf("%d %d\n", temp->x_min, temp->y_min);
-	while (j < 3)
-	{
-		if (map[temp->y_min][temp->x_min] == '.')
+		while (i < map_size)
 		{
+			if (map[j][i] == '.')
+			{
+				temp->x_map = i;
+				temp->y_map = j;
+				break;
+			}
+			i++;
+		}
+		if (i < map_size)
+			break;
+		i = 0;
+		j++;
+	}
+	if (j == map_size)
+		ft_map_rebuild(temp, map, map_size, head);
+	printf("\nLOC Y %d LOC X %d\n",temp->y_loc, temp->x_loc);
+	printf("J %d I %d\n", j, i);
+	temp->x_loc = temp->x_map + 1;
+	temp->y_loc = temp->y_map;
+}
+
+static char **algoritm(tet_list *temp, char **map, int map_size, tet_list **head)
+{
+	int 	j;
+
+	j = 0;
+	ft_map_search(temp, map, map_size, head);
+	/*printf("\nX_MAP %d Y_MAP %d\n",temp->x_map, temp->y_map);
+	printf("%d %d\n", temp->x_map, temp->y_map);*/
+	while (j < 4)
+	{
+		printf("\nX_MAP %d Y_MAP %d\n",temp->x_map, temp->y_map);
+		printf("%d %d\n", temp->x_map, temp->y_map);
+		if (map[temp->y_map][temp->x_map] == '.')
+		{
+			if (j == 3)
+				break;
+			if (temp->coord[j + 1][0] > temp->coord[j][0])
+				temp->y_map += 1;
+			if (temp->coord[j + 1][1] > temp->coord[j][1])
+				temp->x_map += 1;
+			else if (temp->coord[j + 1][1] < temp->coord[j][1])
+				temp->x_map -= temp->coord[j][1] - temp->coord[j + 1][1];
 			j++;
-			if (temp->coord[j][0] > temp->coord[j - 1][0])
-				temp->y_min += 1;
-			if (temp->coord[j][1] > temp->coord[j - 1][1])
-				temp->x_min += 1;
-			else if (temp->coord[j][1] < temp->coord[j - 1][1])
-				temp->x_min = temp->coord[j - 1][1] - temp->coord[j][1];
+			if (temp->y_map == map_size || temp->x_map == map_size)
+			{
+				ft_map_search(temp, map, map_size, head);
+				j = 0;
+			}
+		}
+		else
+		{
+			ft_map_search(temp, map, map_size, head);
+			j = 0;
 		}
 	}
-	printf("X %d Y %d\n", temp->x_min, temp->y_min);
+	printf("X %d Y %d\n", temp->x_map, temp->y_map);
 	if (j == 3)
-		while (j >= 0)
+	{
+		map[temp->y_map][temp->x_map] = temp->letter;
+		while (j > 0)
 		{
-			map[temp->y_min][temp->x_min] = '#';
 			j--;
 			if (temp->coord[j][1] < temp->coord[j + 1][1])
-				temp->x_min -= 1;
+				temp->x_map -= 1;
 			else if (temp->coord[j][1] > temp->coord[j + 1][1])
-				temp->x_min = temp->coord[j][1] + temp->coord[j + 1][1];
+				temp->x_map += temp->coord[j][1] - temp->coord[j + 1][1];
 			if (temp->coord[j][0] < temp->coord[j + 1][0])
-				temp->y_min -= 1;
+				temp->y_map -= 1;
+			map[temp->y_map][temp->x_map] = temp->letter;
 		}
+	}
 	j = 0;
 	while (j < map_size)
 	{
@@ -108,76 +174,21 @@ static char **algoritm(tet_list *temp, char **map, int map_size)
 	return(map);
 }
 
-int 		ft_new_field(const char *buf, tet_list **head, int sharp_num)
+int			ft_new_field(const char *buf, tet_list **head, int sharp_num)
 {
-	int			i;
-	int 		k;
 	int 		map_size;
 	tet_list	*temp;
 	char 		**map;
 
-	i = 0;
-	k = 0;
 	map_size = 2;
 	temp = *head;
 	while (map_size * map_size <= sharp_num)
 		map_size++;
 	map = ft_new_map(map_size);
-/*	while (temp->next != NULL)
+	while (temp->next != NULL)
 	{
-		while (j < 4)
-		{
-			while (i < 5)
-			{
-				if (k != 4 && temp->coord[k][0] == j && temp->coord[k][1] == i)
-				{
-					map[j][i] = '#';
-					k++;
-				}
-				else if (i == 4)
-					map[j][i] = '\n';
-				else
-					map[j][i] = '.';
-				i++;
-
-			}
-			printf("%s", map[j]);
-			i = 0;
-			j++;
-		}
-		printf("\n");
-		j = 0;
-		k = 0;
+		map = algoritm(temp, map, map_size, head);
 		temp = temp->next;
-	}*/
-		while (i < map_size)
-		{
-			if (map[temp->coord[k][0]][temp->coord[k][1]] == '.')
-				k++;
-			i++;
-		}
-		if (k == map_size)
-		{
-			k = 0;
-			while (k < 4)
-			{
-				map[temp->coord[k][0]][temp->coord[k][1]] = '#';
-				k++;
-			}
-		}
-		k = 0;
-		while (k < map_size)
-		{
-			printf("%s", map[k]);
-			k++;
-		}
-		k = 0;
-		i = 0;
-		temp = temp->next;
-		while (temp->next != NULL)
-		{
-			map = algoritm(temp, map, map_size);
-			temp = temp->next;
-		}
+	}
 	return (0);
 }
