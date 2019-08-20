@@ -6,7 +6,7 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 15:50:35 by emaveric          #+#    #+#             */
-/*   Updated: 2019/08/19 20:56:40 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:54:33 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ static void	ft_map_rebuild(tet_list *temp, char **map, int map_size, tet_list **
 			ft_strdel(&map[j]);
 			j++;
 		}
-		map = ft_new_map(++map_size);
-		algoritm(*head, map, map_size, head);
+		ft_new_field(head, ++map_size);
+	/*	map = ft_new_map(++map_size);
+		algoritm(*head, map, map_size, head);*/
 	}
 	while (j < map_size)
 	{
@@ -174,16 +175,12 @@ static char **algoritm(tet_list *temp, char **map, int map_size, tet_list **head
 	return(map);
 }
 
-int			ft_new_field(const char *buf, tet_list **head, int sharp_num)
+int			ft_new_field(tet_list **head, int map_size)
 {
-	int 		map_size;
 	tet_list	*temp;
 	char 		**map;
 
-	map_size = 2;
 	temp = *head;
-	while (map_size * map_size <= sharp_num)
-		map_size++;
 	map = ft_new_map(map_size);
 	while (temp->next != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 21:03:30 by emaveric          #+#    #+#             */
-/*   Updated: 2019/08/18 15:48:24 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:49:54 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,12 @@ static tet_list		*ft_new_tet_list()
 int			main(int argc, char **argv)
 {
 	int 		sharp_num;
+	int 		map_size;
 	char		buf[BUFF_SIZE + 1];
 	tet_list	*head;
 
 	sharp_num = 0;
+	map_size = 2;
 	head = NULL;
 	if (ft_is_file_valid(argc, argv, buf, &sharp_num) == -1)
 	{
@@ -72,6 +74,8 @@ int			main(int argc, char **argv)
 	//printf ("\n\nNUM_SHARP %d\n\n", sharp_num);
 	ft_figure_coordinates(buf, &head);
 	printf ("NUM_SHARP %d\n\n", sharp_num);
-	ft_new_field(buf, &head, sharp_num);
+	while (map_size * map_size <= sharp_num)
+		map_size++;
+	ft_new_field(&head, map_size);
 	return (0);
 }

@@ -34,6 +34,6 @@ typedef struct	tetrimo_list
 
 int		ft_is_figure_valid(char *buf, int *sharp_num);
 int 	ft_figure_coordinates(const char *buf, tet_list	**head);
-int 	ft_new_field(const char *buf, tet_list **head, int sharp_num);
+int 	ft_new_field(tet_list **head, int map_size);
 
 #endif //FILLIT_FILLIT_H
