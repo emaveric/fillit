@@ -6,11 +6,11 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 15:50:35 by emaveric          #+#    #+#             */
-/*   Updated: 2019/08/20 14:54:33 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/20 15:40:52 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../Downloads/fillit-master 2/fillit.h"
 
 static void	ft_map_search(tet_list *temp, char **map, int map_size, tet_list **head);
 static char **algoritm(tet_list *temp, char **map, int map_size, tet_list **head);
@@ -66,6 +66,7 @@ static void	ft_map_rebuild(tet_list *temp, char **map, int map_size, tet_list **
 			j++;
 		}
 		ft_new_field(head, ++map_size);
+		exit (1);
 	/*	map = ft_new_map(++map_size);
 		algoritm(*head, map, map_size, head);*/
 	}

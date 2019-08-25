@@ -6,11 +6,11 @@
 /*   By: emaveric <emaveric@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 17:04:58 by emaveric          #+#    #+#             */
-/*   Updated: 2019/08/20 14:47:25 by emaveric         ###   ########.fr       */
+/*   Updated: 2019/08/20 15:24:48 by emaveric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../Downloads/fillit-master 2/fillit.h"
 
 static int 			**ft_new_arr()
 {
@@ -19,11 +19,11 @@ static int 			**ft_new_arr()
 
 	i = 0;
 	if (!(new_arr = (int**)malloc(sizeof(int*) * 4)))
-		return (-1);
+		return (NULL);
 	while (i < 4)
 	{
 		if (!(new_arr[i] = (int*)malloc(sizeof(int) * 2)))
-			return (-1);
+			return (NULL);
 		i++;
 	}
 	return (new_arr);
@@ -34,9 +34,9 @@ static tet_list		*ft_new_tet_list(char letter)
 	tet_list *new;
 
 	if (!(new = malloc(sizeof(tet_list))))
-		return (-1);
+		return (NULL);
 	if (!(new->coord = ft_new_arr()))
-		return (-1);
+		return (NULL);
 	new->letter = letter;
 	new->next = NULL;
 	new->prev = NULL;
